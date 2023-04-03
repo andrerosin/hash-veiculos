@@ -36,29 +36,27 @@ class TabelaHash:
         indice = self.funcao_hash(placa)
         while self.tabela[indice] is not None:
             if self.tabela[indice].placa == placa:
-                self.tabela[indice] = Veiculo(
-                    None, None, None, None)  # lazy deletion
+                self.tabela[indice] = Veiculo(None, None, None, None)  # lazy deletion
                 return
             indice = (indice + 1) % self.tamanho
 
     def exibir(self):
         for i in range(self.tamanho):
             if self.tabela[i] is not None and self.tabela[i].placa is not None:
-                print(
-                    f"Posição {i}: {self.tabela[i].placa} - {self.tabela[i].modelo} {self.tabela[i].cor} ({self.tabela[i].ano})")
+                print(f"Posição {i}: {self.tabela[i].placa} - {self.tabela[i].modelo} {self.tabela[i].cor} ({self.tabela[i].ano})")
 
 
 # Exemplo de uso
 tabela = TabelaHash()
 
 while True:
-    print("\nEscolha uma opção:")
+    print("\nEscolha uma opção:\n")
     print("1 - Inserir veículo")
     print("2 - Buscar veículo")
     print("3 - Excluir veículo")
     print("4 - Exibir tabela hash")
     print("0 - Sair")
-    opcao = int(input("Opção escolhida: "))
+    opcao = int(input("\nOpção escolhida: "))
 
     if opcao == 1:
         placa = input("Digite a placa do veículo: ")
@@ -66,9 +64,9 @@ while True:
         cor = input("Digite a cor do veículo: ")
         ano = int(input("Digite o ano do veículo: "))
         veiculo = Veiculo(placa, modelo, ano, cor)
-        tabela.inserir(veiculo)
-
-        if tabela.buscar(placa) is not None:
+        
+        veiculo_encontrado = tabela.buscar(placa)
+        if veiculo_encontrado is not None and veiculo_encontrado.placa == placa:
             print("Placa já existente na tabela!")
         else:
             tabela.inserir(veiculo)
